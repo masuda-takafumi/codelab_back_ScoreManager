@@ -102,11 +102,7 @@ class User extends Utils
             if ($user && password_verify($password, $user['password_hash'])) {
                 $_SESSION['user_id'] = $user['id'];
                 $_SESSION['email'] = $user['email'];
-<<<<<<< HEAD
                 header("Location: /student_list.php");
-=======
-                header("Location: /php/student_list.php");
->>>>>>> bfb5fd8 (fix_2_生徒管理システム)
                 exit;
             } else {
                 $this->setErrors('email', 'メールアドレスまたはパスワードが正しくありません。');

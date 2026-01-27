@@ -35,12 +35,8 @@ class Token
             empty($_SESSION['token']) ||
             $_SESSION['token'] !== filter_input(INPUT_POST, 'token')
         ) {
-<<<<<<< HEAD
             header('Location: /login.php');
             exit;
-=======
-            exit('Invalid post request');
->>>>>>> bfb5fd8 (fix_2_生徒管理システム)
         }
     }
 }

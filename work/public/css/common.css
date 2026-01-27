@@ -302,8 +302,6 @@ fieldset.register-area {
   text-align: center;
 }
 
-<<<<<<< HEAD
-
 #score-table .score-display {
   display: inline-block;
   border-radius: 12px;
@@ -318,8 +316,6 @@ fieldset.register-area {
 #score-table .score-type {
   min-width: 70px;
 }
-=======
->>>>>>> bfb5fd8 (fix_2_生徒管理システム)
 thead {
   background-color: #f0f0f0;
 }

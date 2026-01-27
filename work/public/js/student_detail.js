@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 /*
-=======
-﻿/*
->>>>>>> bfb5fd8 (fix_2_生徒管理システム)
  * 役割：生徒詳細画面のUI制御
  * 1) 要素取得
  * 2) 点数計算
@@ -28,7 +24,6 @@ document.addEventListener("DOMContentLoaded", function () {
   const validationError = document.getElementById('validation-error');
 
   // 点数計算
-<<<<<<< HEAD
   function getElementValue(el) {
     if (!el) return '';
     if (el.tagName === 'INPUT' || el.tagName === 'SELECT' || el.tagName === 'TEXTAREA') {
@@ -45,24 +40,14 @@ document.addEventListener("DOMContentLoaded", function () {
     }
     el.textContent = value;
   }
-
-=======
->>>>>>> bfb5fd8 (fix_2_生徒管理システム)
   function calcScore(tr) {
     const inputs = Array.from(tr.querySelectorAll('.score-input'));
     const nums = inputs.map(i => parseInt(i.value, 10)).filter(n => !isNaN(n));
     const sum = nums.reduce((a, b) => a + b, 0);
     const avg = nums.length ? (sum / nums.length).toFixed(1) : '';
-<<<<<<< HEAD
     setElementValue(tr.querySelector('.score-sum'), nums.length ? sum : '');
     setElementValue(tr.querySelector('.score-avg'), nums.length ? avg : '');
   }
-=======
-    tr.querySelector('.score-sum').value = nums.length ? sum : '';
-    tr.querySelector('.score-avg').value = nums.length ? avg : '';
-  }
-
->>>>>>> bfb5fd8 (fix_2_生徒管理システム)
   // ログアウト
   logoutBtn.addEventListener('click', () => { window.location.href = 'logout.php'; });
 
@@ -71,11 +56,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const existingRows = document.querySelectorAll('#score-table-body tr[data-existing="true"]');
     existingRows.forEach(tr => {
       const typeSelect = tr.querySelector('.score-type');
-<<<<<<< HEAD
       if (typeSelect && getElementValue(typeSelect) === '未受験') {
-=======
-      if (typeSelect && typeSelect.value === '未受験') {
->>>>>>> bfb5fd8 (fix_2_生徒管理システム)
         typeSelect.classList.add('select-error');
       }
     });
@@ -226,11 +207,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const scoreInputs = tr.querySelectorAll('.score-input');
         if (!dateInput || !typeSelect || scoreInputs.length === 0) return;
         const anyScoreFilled = Array.from(scoreInputs).some(input => input.value && input.value.trim() !== '');
-<<<<<<< HEAD
         if (getElementValue(dateInput) && getElementValue(typeSelect) !== '未受験' && anyScoreFilled) {
-=======
-        if (dateInput.value.trim() && typeSelect.value !== '未受験' && anyScoreFilled) {
->>>>>>> bfb5fd8 (fix_2_生徒管理システム)
           hasMeaningfulTest = true;
         }
       });
