@@ -1,0 +1,134 @@
+/*
+生徒管理システム - ログイン・新規登録画面
+
+1. 基本スタイル
+2. ヘッダー・ロゴ
+3. メインコンテンツ
+4. フォーム要素
+5. ボタン
+6. フッター
+7. リンク
+*/
+
+/* 1. 基本スタイル */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  background-color: #fff;
+  font-family: sans-serif;
+  min-width: 1200px;
+}
+
+/* 2. ヘッダー・ロゴ */
+header {
+  background: #ffb74d;
+  padding: 10px 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: row;
+}
+.logo-area {
+  display: flex;
+  align-items: center;
+  margin-left: 0;
+  margin-right: 30px;
+}
+.logo {
+  width: 50px;
+  height: 50px;
+  margin-left: 32px;
+}
+.title {
+  font-size: 2em;
+  font-weight: bold;
+  margin-right: 15px;
+}
+.subtitle {
+  font-size: 1.1em;
+  color: #333;
+}
+
+/* 3. メインコンテンツ */
+main {
+  min-height: 70vh;
+}
+.container {
+  width: 400px;
+  margin: 150px auto;
+  background: #e0dddd;
+  padding: 40px 30px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px #ccc;
+}
+h2 {
+  text-align: center;
+  margin-bottom: 30px;
+  font-size: 2em;
+}
+
+/* 4. フォーム要素 */
+.error-message {
+  background: #ffebee;
+  color: #c62828;
+  padding: 12px;
+  margin-bottom: 20px;
+  border-radius: 5px;
+  border: 1px solid #ef5350;
+  font-size: 0.95em;
+  text-align: center;
+}
+label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 1.1em;
+}
+input[type="email"],
+input[type="password"] {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 20px;
+  border: 1px solid #bbb;
+  border-radius: 5px;
+  font-size: 1em;
+}
+
+/* 5. ボタン */
+button {
+  width: 100%;
+  padding: 12px;
+  background: #ffb74d;
+  border: none;
+  border-radius: 5px;
+  font-size: 1.1em;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+button:hover {
+  background: #ffa726;
+}
+
+/* 6. フッター */
+footer {
+  background: #ffb74d;
+  text-align: right;
+  padding: 10px 30px;
+  font-size: 0.95em;
+  color: #333;
+}
+
+/* 7. リンク */
+.link-area {
+  text-align: center;
+  margin-top: 20px;
+}
+.link-area a {
+  color: #ffb74d;
+  text-decoration: none;
+}
+.link-area a:hover {
+  text-decoration: underline;
+}

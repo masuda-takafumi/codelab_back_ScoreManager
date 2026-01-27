@@ -1,0 +1,27 @@
+/*
+生徒管理システム - 生徒詳細
+
+1. 基本スタイル
+2. レイアウト
+*/
+
+/* 1. 基本スタイル */
+@import url('common.css');
+
+/* 2. レイアウト */
+main {
+  max-width: 1000px;
+  margin: 20px auto;
+  padding: 0 1rem;
+}
+
+/* ヘッダー下の見出し */
+.student-detail-title {
+  text-align: left;
+  margin: 24px 0 12px 50px;
+  font-size: 2.1em;
+  font-weight: bold;
+}
+
+
+

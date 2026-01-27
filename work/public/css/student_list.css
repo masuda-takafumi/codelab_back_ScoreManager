@@ -1,0 +1,196 @@
+/*
+生徒管理システム - 生徒一覧
+
+1. 基本スタイル
+2. レイアウト
+3. テーブル
+*/
+
+/* 1. 基本スタイル */
+@import url('common.css');
+
+
+
+
+/* 2. レイアウト */
+main {
+  max-width: 1000px;
+  margin: 0 auto 20px;
+  padding: 0 1rem;
+}
+
+/* タブ */
+.tabs {
+  display: flex;
+}
+
+.tab {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  border-bottom: 3px solid transparent;
+  text-decoration: none;
+  color: inherit;
+}
+
+.tab.active {
+  color: gray;
+  border-top: 3px solid orange;
+}
+
+/* 検索ボックス */
+.search-box {
+  display: flex;
+  padding-top: 30px;
+  padding-bottom: 30px;
+  margin-bottom: 0;
+  gap: 1rem;
+  justify-content: center;
+  background-color: #f0f0f0;
+}
+
+.search-input-wrapper {
+  position: relative;
+  width: 300px;
+}
+
+.pill-input {
+  border-radius: 12px;
+  border: 2px solid #222;
+  padding: 0.2em 0.5em;
+  font-size: 1em;
+  text-align: center;
+  background: #fff;
+}
+
+.search-box input {
+  padding: 0.5rem 2rem 0.5rem 0.5rem;
+  font-size: 1rem;
+  width: 100%;
+  box-sizing: border-box;
+  text-align: left;
+}
+
+.search-clear {
+  position: absolute;
+  right: 0.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  border: none;
+  background: transparent;
+  color: #000;
+  opacity: 1;
+  text-decoration: none;
+  box-shadow: none;
+  outline: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+  display: none;
+  line-height: 1;
+  padding: 0;
+}
+
+.search-clear.visible {
+  display: inline;
+}
+
+.search-btn {
+  background-color: orange;
+  border: none;
+  color: white;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+
+
+
+/* 3. テーブル */
+/*ent-list-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: white;
+}
+
+.student-list-table th,
+.student-list-table td {
+  padding: 0.75rem;
+  border-bottom: 1px solid #ccc;
+  text-align: center;
+}
+
+button.action {
+  border: 2px solid black;
+  border-radius: 1.5rem;
+  cursor: pointer;
+  font-weight: bold;
+  text-decoration: none;
+  color: inherit;
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  background-color: white;
+}*/
+
+.student-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: white;
+}
+
+.student-table th,
+.student-table td {
+  padding: 0.75rem;
+  border-bottom: 1px solid #ccc;
+  text-align: center;
+}
+
+.student-table button.action {
+  border: 2px solid black;
+  border-radius: 1.5rem;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.pill-button {
+  border: 2px solid black;
+  border-radius: 1.5rem;
+  cursor: pointer;
+  font-weight: bold;
+  text-decoration: none;
+  color: inherit;
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  background-color: white;
+  font-size: 1em;
+  line-height: 1.2;
+  text-align: center;
+}
+
+.pagination {
+  margin-top: 1rem;
+  text-align: center;
+  display: block;
+  min-height: 50px;
+}
+
+.pagination button {
+  margin: 0 0.25rem;
+  padding: 0.5rem 0.75rem;
+  background-color: white;
+  border: 1px solid orange;
+  color: orange;
+  cursor: pointer;
+  border-radius: 8px;
+}
+
+.pagination button:hover,
+.pagination button.active-page {
+  background-color: orange;
+  color: white;
+}
+
+
+

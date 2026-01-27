@@ -1,0 +1,124 @@
+/*
+生徒管理システム - 完了画面
+
+1. 基本スタイル
+2. ヘッダー・ロゴ
+3. 完了メッセージ
+4. リンク
+5. フッター
+*/
+/* 1. 基本スタイル */
+body {
+  margin: 0;
+  font-family: sans-serif;
+  background-color: #f5f5f5;
+}
+
+
+
+
+/* 2. ヘッダー・ロゴ */
+header {
+  background: #ffb74d;
+  padding: 10px 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: row;
+}
+.logo-area {
+  display: flex;
+  align-items: center;
+  margin-left: 0;
+  margin-right: 30px;
+}
+.logo {
+  width: 50px;
+  height: 50px;
+  margin-left: 32px;
+}
+.title {
+  font-size: 2em;
+  font-weight: bold;
+  margin-right: 15px;
+}
+.subtitle {
+  font-size: 1.1em;
+  color: #333;
+}
+.logout-logo {
+  width: 120x;
+  height: 40px;
+  margin-right: 40px;
+}
+
+
+
+
+/* 3. 完了メッセージ */
+.complete-container {
+  max-width: 600px;
+  margin: 40px auto;
+  padding: 2rem;
+  text-align: center;
+}
+.complete-box .circle-placeholder {
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  background-color: #4CAF50;
+  color: white;
+  font-size: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1rem;
+}
+.complete-box h2 {
+  color: #333;
+  font-size: 1.5rem;
+}
+
+
+
+
+/* 4. リンク */
+.back-list-wrapper {
+  margin-bottom: 10px;
+  text-align: center;
+  margin-right: 520px;
+}
+.back-list {
+  color: #0288d1;
+  background: none;
+  font-weight: bold;
+  padding: 0;
+  border-radius: 0;
+  margin: 0 auto;
+  text-decoration: none;
+  font-size: 1.1em;
+  box-shadow: none;
+  transition: color 0.2s;
+  display: inline-block;
+}
+.back-list:hover {
+  text-decoration: underline;
+  color: #01579b;
+}
+
+
+
+
+/* 5. フッター */
+footer {
+  background: #ffb74d;
+  text-align: right;
+  padding: 10px 30px;
+  font-size: 0.95em;
+  color: #333;
+}
+footer .copyright {
+  color: black;
+  margin-left: auto;
+  padding-right: 1rem;
+}
