@@ -23,6 +23,15 @@ if (!Utils::isLoggedIn()) {
 // アクション取得
 $action = $_POST['action'] ?? '';
 
+const ALLOWED_CLASSES = ['A', 'B', 'C', 'D', 'E', 'F'];
+const ALLOWED_GENDERS = ['1', '2'];
+const CLASS_NO_MIN = 1;
+const CLASS_NO_MAX = 31;
+const ALLOWED_SCORE_SUBJECTS = ['english', 'math', 'japanese', 'science', 'social'];
+const SCORE_MIN = 0;
+const SCORE_MAX = 100;
+const ALLOWED_TEST_TYPES = ['未受験', '期末試験', '中間試験'];
+
 // 共通関数
 function redirectWithError($action, $student_id = '', $error = 'validation') {
     if (in_array($action, ['update_student', 'save_score', 'delete_score'], true) && $student_id !== '') {
@@ -58,18 +67,17 @@ function validateStudentFields($data, &$birth_date) {
             return false;
         }
     }
-    $allowed_classes = ['A', 'B', 'C', 'D', 'E', 'F'];
-    if (!in_array($data['class'], $allowed_classes, true)) {
+    if (!in_array($data['class'], ALLOWED_CLASSES, true)) {
         return false;
     }
     if (!ctype_digit((string)$data['class_no'])) {
         return false;
     }
     $class_no = (int)$data['class_no'];
-    if ($class_no < 1 || $class_no > 31) {
+    if ($class_no < CLASS_NO_MIN || $class_no > CLASS_NO_MAX) {
         return false;
     }
-    if (!in_array((string)$data['gender'], ['1', '2'], true)) {
+    if (!in_array((string)$data['gender'], ALLOWED_GENDERS, true)) {
         return false;
     }
     $birth_date = buildBirthDate($data['birth_year'], $data['birth_month'], $data['birth_day']);
@@ -83,10 +91,9 @@ function validateScores($scores, &$normalized_scores) {
     if (!is_array($scores)) {
         return false;
     }
-    $allowed = ['english', 'math', 'japanese', 'science', 'social'];
     $normalized = [];
     foreach ($scores as $subject => $score) {
-        if (!in_array($subject, $allowed, true)) {
+        if (!in_array($subject, ALLOWED_SCORE_SUBJECTS, true)) {
             return false;
         }
         if ($score === '' || $score === null) {
@@ -97,7 +104,7 @@ function validateScores($scores, &$normalized_scores) {
             return false;
         }
         $value = (int)$score;
-        if ($value < 0 || $value > 100) {
+        if ($value < SCORE_MIN || $value > SCORE_MAX) {
             return false;
         }
         $normalized[$subject] = $value;
@@ -112,6 +119,10 @@ function validateTestDate($date) {
     }
     [$y, $m, $d] = explode('-', $date);
     return checkdate((int)$m, (int)$d, (int)$y);
+}
+
+function validateTestType($test_type) {
+    return in_array($test_type, ALLOWED_TEST_TYPES, true);
 }
 
 // 写真保存
@@ -260,8 +271,7 @@ try {
             if (!validateTestDate($test_date)) {
                 redirectWithError($action, $student_id, 'validation');
             }
-            $allowed_test_types = ['未受験', '期末試験', '中間試験'];
-            if (!in_array($test_type, $allowed_test_types, true)) {
+            if (!validateTestType($test_type)) {
                 redirectWithError($action, $student_id, 'validation');
             }
 
