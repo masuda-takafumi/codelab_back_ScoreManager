@@ -8,6 +8,17 @@
  */
 class StudentModel
 {
+    private const STUDENT_COLUMNS = ['last_name', 'first_name', 'last_name_kana', 'first_name_kana', 'class', 'class_no', 'gender', 'birth_date'];
+
+    private static function buildStudentParams(array $data): array
+    {
+        $params = [];
+        foreach (self::STUDENT_COLUMNS as $field) {
+            $params[] = $data[$field];
+        }
+        return $params;
+    }
+
     public static function getStudentViewData(PDO $pdo, $studentId)
     {
         $stmt = $pdo->prepare("SELECT * FROM students WHERE id = ?");
@@ -82,24 +93,22 @@ class StudentModel
 
     public static function insertStudent(PDO $pdo, array $data): int
     {
-        $stmt = $pdo->prepare("INSERT INTO students (last_name, first_name, last_name_kana, first_name_kana, class, class_no, gender, birth_date) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
-        $db_fields = ['last_name', 'first_name', 'last_name_kana', 'first_name_kana', 'class', 'class_no', 'gender', 'birth_date'];
-        $execute = [];
-        foreach ($db_fields as $field) {
-            $execute[] = $data[$field];
-        }
-        $stmt->execute($execute);
+        $columns = implode(', ', self::STUDENT_COLUMNS);
+        $placeholders = implode(', ', array_fill(0, count(self::STUDENT_COLUMNS), '?'));
+        $stmt = $pdo->prepare("INSERT INTO students ($columns) VALUES ($placeholders)");
+        $stmt->execute(self::buildStudentParams($data));
         return (int)$pdo->lastInsertId();
     }
 
     public static function updateStudent(PDO $pdo, int $studentId, array $data): void
     {
-        $stmt = $pdo->prepare("UPDATE students SET last_name = ?, first_name = ?, last_name_kana = ?, first_name_kana = ?, class = ?, class_no = ?, gender = ?, birth_date = ? WHERE id = ?");
-        $db_fields = ['last_name', 'first_name', 'last_name_kana', 'first_name_kana', 'class', 'class_no', 'gender', 'birth_date'];
-        $execute = [];
-        foreach ($db_fields as $field) {
-            $execute[] = $data[$field];
+        $set_clause_parts = [];
+        foreach (self::STUDENT_COLUMNS as $column) {
+            $set_clause_parts[] = $column . ' = ?';
         }
+        $set_clause = implode(', ', $set_clause_parts);
+        $stmt = $pdo->prepare("UPDATE students SET $set_clause WHERE id = ?");
+        $execute = self::buildStudentParams($data);
         $execute[] = $studentId;
         $stmt->execute($execute);
     }
