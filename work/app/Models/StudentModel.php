@@ -9,6 +9,7 @@
 class StudentModel
 {
     private const STUDENT_COLUMNS = ['last_name', 'first_name', 'last_name_kana', 'first_name_kana', 'class', 'class_no', 'gender', 'birth_date'];
+    private const DEFAULT_PHOTO_PATH = '/img/ダミー生徒画像.png';
 
     private static function buildStudentParams(array $data): array
     {
@@ -17,6 +18,74 @@ class StudentModel
             $params[] = $data[$field];
         }
         return $params;
+    }
+
+    private static function createDefaultDetailStudent($studentId = ''): array
+    {
+        return [
+            'id' => (string)$studentId,
+            'class' => '',
+            'class_no' => '',
+            'last_name' => '',
+            'first_name' => '',
+            'last_name_kana' => '',
+            'first_name_kana' => '',
+            'gender' => '',
+            'birth_date' => '',
+            'birth_year' => '',
+            'birth_month' => '',
+            'birth_day' => '',
+            'gender_text' => ''
+        ];
+    }
+
+    private static function resolvePhotoPath($studentId): string
+    {
+        if ($studentId !== '' && ctype_digit((string)$studentId)) {
+            $photo_file = '/work/public/img/student_' . intval($studentId) . '.jpg';
+            if (file_exists($photo_file)) {
+                return '/img/student_' . intval($studentId) . '.jpg';
+            }
+        }
+        return self::DEFAULT_PHOTO_PATH;
+    }
+
+    private static function buildDetailReturnUrl(array $queryParams): string
+    {
+        $return_params = [];
+        if (isset($queryParams['q']) && $queryParams['q'] !== '') {
+            $return_params['q'] = $queryParams['q'];
+        }
+        if (isset($queryParams['page']) && ctype_digit((string)$queryParams['page'])) {
+            $return_params['page'] = $queryParams['page'];
+        }
+        return buildUrl('/student_list.php', $return_params);
+    }
+
+    public static function getDefaultDetailViewData(array $queryParams = []): array
+    {
+        return [
+            'student' => self::createDefaultDetailStudent(),
+            'photo_path' => self::DEFAULT_PHOTO_PATH,
+            'return_url' => self::buildDetailReturnUrl($queryParams)
+        ];
+    }
+
+    public static function getDetailViewData(PDO $pdo, $studentId, array $queryParams = []): array
+    {
+        $view_data = self::getDefaultDetailViewData($queryParams);
+        $student = self::createDefaultDetailStudent($studentId);
+
+        if ($studentId !== '' && ctype_digit((string)$studentId)) {
+            $student_data = self::getStudentViewData($pdo, $studentId);
+            if ($student_data) {
+                $student = array_merge($student, $student_data);
+            }
+        }
+
+        $view_data['student'] = $student;
+        $view_data['photo_path'] = self::resolvePhotoPath($student['id']);
+        return $view_data;
     }
 
     public static function getStudentViewData(PDO $pdo, $studentId)

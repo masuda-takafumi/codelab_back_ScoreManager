@@ -1,18 +1,8 @@
 <?php
 /*
- * 役割：生徒詳細の表示・成績一覧・編集フォーム
- * 1) 共通読み込み/ログイン確認
- * 2) 入力取得と初期値
- * 3) 生徒情報取得
- * 4) 写真パス決定
- * 5) 成績取得（LEFT JOIN/COALESCE）
- * 6) 合計/平均と未受験判定
- * 7) 戻りURL作成
- * 8) HTML出力
- * 9) スクリプト読み込み
+ * student detail page bootstrap
  */
 
-// 共通読み込み/ログイン確認
 require_once '/work/app/config.php';
 require_once '/work/app/core.php';
 require_once '/work/app/Models/ScoreModel.php';
@@ -25,47 +15,17 @@ if (!Utils::isLoggedIn()) {
 
 checkLogoutRequest();
 
-// 入力取得と初期値
-$student = [
-    'id' => $_GET['id'] ?? '',
-    'class' => '',
-    'class_no' => '',
-    'last_name' => '',
-    'first_name' => '',
-    'last_name_kana' => '',
-    'first_name_kana' => '',
-    'gender' => '',
-    'birth_date' => '',
-    'birth_year' => '',
-    'birth_month' => '',
-    'birth_day' => '',
-    'gender_text' => ''
-];
-$photo_path = '/img/ダミー生徒画像.png';
+$detail_view_data = StudentModel::getDefaultDetailViewData($_GET);
+try {
+    $pdo = getDatabaseConnection();
+    $detail_view_data = StudentModel::getDetailViewData($pdo, $_GET['id'] ?? '', $_GET);
+} catch (Exception $e) {
 
-// 生徒情報取得
-if ($student['id']) {
-    try {
-        $pdo = getDatabaseConnection();
-        $student_data = StudentModel::getStudentViewData($pdo, $student['id']);
-
-        if ($student_data) {
-            $student = array_merge($student, $student_data);
-        }
-    } catch (Exception $e) {
-
-    }
 }
+$student = $detail_view_data['student'];
+$photo_path = $detail_view_data['photo_path'];
+$return_url = $detail_view_data['return_url'];
 
-// 写真パス決定
-if ($student['id']) {
-    $photo_file = '/work/public/img/student_' . intval($student['id']) . '.jpg';
-    if (file_exists($photo_file)) {
-        $photo_path = '/img/student_' . intval($student['id']) . '.jpg';
-    }
-}
-
-// 成績取得
 $existing_scores = [];
 if ($student['id']) {
     try {
@@ -76,16 +36,6 @@ if ($student['id']) {
         $existing_scores = [];
     }
 }
-
-// 戻りURL作成
-$return_params = [];
-if (isset($_GET['q']) && $_GET['q'] !== '') {
-    $return_params['q'] = $_GET['q'];
-}
-if (isset($_GET['page']) && ctype_digit((string)$_GET['page'])) {
-    $return_params['page'] = $_GET['page'];
-}
-$return_url = buildUrl('/student_list.php', $return_params);
 ?>
 
 <!-- HTML出力 -->
